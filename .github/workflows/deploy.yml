@@ -18,16 +18,16 @@ jobs:
       
       - name: Push to ACR
         run: |
-          az acr login -n labdeployacr
-          docker tag myapp:latest labdeployacr.azurecr.io/myapp:latest
-          docker push labdeployacr.azurecr.io/myapp:latest
+          az acr login -n labdeployacrmv
+          docker tag myapp:latest labdeployacrmv.azurecr.io/myapp:latest
+          docker push labdeployacrmv.azurecr.io/myapp:latest
       
       - name: Deploy to WebApp
         run: |
           az webapp config container set \
-            -g RGLabDeploy \
-            -n labdeploy-webapp \
-            --container-image-name labdeployacr.azurecr.io/myapp:latest \
-            --container-registry-url https://labdeployacr.azurecr.io \
+            -g RGLabDeploy-MV \
+            -n labdeploy-webapp-MV \
+            --container-image-name labdeployacrmv.azurecr.io/myapp:latest \
+            --container-registry-url https://labdeployacrmv.azurecr.io \
             --container-registry-user ${{ secrets.ACR_USER }} \
             --container-registry-password ${{ secrets.ACR_PWD }}
