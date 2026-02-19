@@ -3,17 +3,17 @@ const app = express();
 const cors = require('cors');
 
 const { exec } = require('child_process');
-
+ 
 // insecure: executes arbitrary command from query string
 app.get('/ping', (req, res) => {
-  const host = req.query.host;
-  exec(`ping -c 1 ${host}`, (err, stdout, stderr) => {
-    if (err) {
-      res.status(500).send(`Error: ${stderr}`);
-      return;
-    }
-    res.send(`Output: ${stdout}`);
-  });
+const host = req.query.host;
+exec(`ping -c 1 ${host}`, (err, stdout, stderr) => {
+if (err) {
+res.status(500).send(`Error: ${stderr}`);
+return;
+}
+res.send(`Output: ${stdout}`);
+});
 });
 
 // insecure: allows all origins
